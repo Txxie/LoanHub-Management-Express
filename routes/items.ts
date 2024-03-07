@@ -11,11 +11,11 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 router.get('/', async (req: Request, res: Response) => {
-    const { current = 1, pageSize = 10, name, author, category } = req.query;
+    const { current = 1, pageSize = 10, name, code, category } = req.query;
     // 查询总数
     const total = await Item.countDocuments({
         ...(name && { name }),
-        ...(author && { author }),
+        ...(code && { code }),
         ...(category && { category }),
     });
     console.log(
@@ -27,7 +27,7 @@ router.get('/', async (req: Request, res: Response) => {
     // 分页查询
     const data = await Item.find({
         ...(name && { name }),
-        ...(author && { author }),
+        ...(code && { code }),
         ...(category && { category }),
     })
         .populate('category')
