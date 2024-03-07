@@ -6,7 +6,8 @@ const itemSchema = new mongoose.Schema({
         required: true,
     },
     code: {
-        type: String,
+        // type: String,
+        type: Number,
         required: true,
     },
     description: {
@@ -16,7 +17,7 @@ const itemSchema = new mongoose.Schema({
         type: String,
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId, // 外联，连到分类表
         ref: 'Category',
     },
     stock: {

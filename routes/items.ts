@@ -3,7 +3,7 @@ import { Item } from '../model';
 
 var router = express.Router();
 
-router.post('/', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
     const itemModel = new Item(req.body);
     const item = await itemModel.save();
 
