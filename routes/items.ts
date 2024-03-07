@@ -4,8 +4,8 @@ import { Item } from '../model';
 var router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
-    const bookModel = new Item(req.body);
-    const book = await bookModel.save();
+    const itemModel = new Item(req.body);
+    const item = await itemModel.save();
 
     return res.status(200).json({ message: '创建成功' });
 });
@@ -39,9 +39,9 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 router.get('/:id', async (req: Request, res: Response) => {
-    const book = await Item.findOne({ _id: req.params.id }).populate('category');
-    if (book) {
-        res.status(200).json({ data: book, success: true });
+    const item = await Item.findOne({ _id: req.params.id }).populate('category');
+    if (item) {
+        res.status(200).json({ data: item, success: true });
     } else {
         res.status(500).json({ message: '该书籍不存在' });
     }
@@ -59,8 +59,8 @@ router.put('/:id', async (req: Request, res: Response) => {
 });
 
 router.delete('/:id', async (req: Request, res: Response) => {
-    const book = await Item.findById(req.params.id);
-    if (book) {
+    const item = await Item.findById(req.params.id);
+    if (item) {
         await Item.deleteOne({ _id: req.params.id });
 
         res.status(200).json({ success: true });

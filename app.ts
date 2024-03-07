@@ -8,7 +8,7 @@ import "express-async-errors";
 import loginRouter from "./routes/login";
 import logoutRouter from "./routes/logout";
 import usersRouter from "./routes/users";
-import booksRouter from "./routes/books";
+import itemsRouter from "./routes/items";
 import categoryRouter from "./routes/category";
 import borrowRouter from "./routes/borrows";
 
@@ -45,7 +45,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter);
 app.use("/api/users", usersRouter);
-app.use("/api/books", booksRouter);
+app.use("/api/items", itemsRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/borrows", borrowRouter);
 

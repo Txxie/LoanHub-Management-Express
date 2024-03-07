@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bookSchema from "./bookModel";
+import itemSchema from "./itemModel";
 import borrowSchema from "./borrowModel";
 import categorySchema from "./categoryModel";
 import userSchema from "./userModel";
@@ -17,7 +17,7 @@ main()
     console.log("mongo connected fail");
   });
 
-const Item = mongoose.model("Item", bookSchema);
+const Item = mongoose.model("Item", itemSchema);
 const User = mongoose.model("User", userSchema);
 const Category = mongoose.model("Category", categorySchema);
 const Borrow = mongoose.model("Borrow", borrowSchema);

@@ -32,14 +32,14 @@ router.post('/', async (req: Request, res: Response) => {
   const { item, user } = req.body;
   const borrow = new Borrow(req.body);
 
-  const bookData = await Item.findOne({ _id: item });
+  const itemData = await Item.findOne({ _id: item });
 
-  if (bookData) {
+  if (itemData) {
     // 若库存大于1，则可以借阅
-    if (bookData.stock > 0) {
+    if (itemData.stock > 0) {
       await borrow.save();
       // 保存成功后库存减少1
-      await Item.findByIdAndUpdate(bookData._id, { stock: bookData.stock - 1 });
+      await Item.findByIdAndUpdate(itemData._id, { stock: itemData.stock - 1 });
       res.status(200).json({ success: true });
     } else {
       res.status(500).json({ message: '书籍库存不足' });
