@@ -17,7 +17,8 @@ router.post('/', async (req: Request, res: Response) => {
 
 // 查询物品列表
 router.get('/', async (req: Request, res: Response) => {
-    const { current = 1, pageSize = 6, name, code, category } = req.query;
+    const { current = 1, pageSize = 6, all, name, code, category } = req.query;
+    /*原写法产生bug：在物品租借的物品名称下拉框，只会出现6条数据
     // 查询总数
     const total = await Item.countDocuments({
         ...(name && { name }),
@@ -42,6 +43,54 @@ router.get('/', async (req: Request, res: Response) => {
         .limit(Number(pageSize));
 
     return res.status(200).json({ data, total });
+    */
+    // 如果参数 all 为 true，则返回所有数据
+    if (all === 'true') {
+        try {
+            const data = await Item.find({
+                ...(name && { name }),
+                ...(code && { code }),
+                ...(category && { category }),
+            })
+                .populate('category')
+                .sort({ updatedAt: -1 });
+
+            return res.status(200).json({ data, total: data.length });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+
+    // 否则，进行分页查询
+    try {
+        const total = await Item.countDocuments({
+            ...(name && { name }),
+            ...(code && { code }),
+            ...(category && { category }),
+        });
+
+        console.log(
+            '%c [ total ]-17',
+            'font-size:13px; background:pink; color:#bf2c9f;',
+            total
+        );
+
+        const data = await Item.find({
+            ...(name && { name }),
+            ...(code && { code }),
+            ...(category && { category }),
+        })
+            .populate('category')
+            .sort({ updatedAt: -1 })
+            .skip((Number(current) - 1) * Number(pageSize))
+            .limit(Number(pageSize));
+
+        return res.status(200).json({ data, total });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
 
 router.get('/:id', async (req: Request, res: Response) => {
