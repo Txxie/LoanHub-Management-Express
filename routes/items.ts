@@ -15,6 +15,7 @@ router.post('/', async (req: Request, res: Response) => {
     return res.status(200).json({ message: '创建成功' });
 });
 
+// 查询物品列表
 router.get('/', async (req: Request, res: Response) => {
     const { current = 1, pageSize = 6, name, code, category } = req.query;
     // 查询总数

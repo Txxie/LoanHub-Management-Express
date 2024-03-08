@@ -28,6 +28,7 @@ router.get('/', async (req: Request, res: Response) => {
   res.status(200).json({ message: true, data, total });
 });
 
+// 租借添加
 router.post('/', async (req: Request, res: Response) => {
   const { item, user } = req.body;
   const borrow = new Borrow(req.body);
@@ -60,7 +61,21 @@ router.get('/:id', async (req: Request, res: Response) => {
     res.status(500).json({ message: '该借阅不存在' });
   }
 });
-router.put('/:id', async (req: Request, res: Response) => { });
+
+// 对应租借编辑
+router.put('/:id', async (req: Request, res: Response) => {
+  console.log(
+    '%c [ total ]-17',
+    'font-size:13px; background:pink; color:#bf2c9f;',
+    req.params.id
+  );
+  try {
+    await Borrow.findOneAndUpdate({ _id: req.params.id }, req.body);
+    return res.status(200).json();
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+});
 
 router.delete('/:id', async (req: Request, res: Response) => {
   const borrow = await Borrow.findById(req.params.id);
