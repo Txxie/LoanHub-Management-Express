@@ -11,7 +11,7 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 router.get('/', async (req: Request, res: Response) => {
-    const { current = 1, pageSize = 10, name, code, category } = req.query;
+    const { current = 1, pageSize = 6, name, code, category } = req.query;
     // 查询总数
     const total = await Item.countDocuments({
         ...(name && { name }),
@@ -47,7 +47,7 @@ router.get('/:id', async (req: Request, res: Response) => {
     }
 });
 
-// 更新一本书
+// 更新一个物品
 router.put('/:id', async (req: Request, res: Response) => {
     try {
         await Item.findOneAndUpdate({ _id: req.params.id }, req.body);
