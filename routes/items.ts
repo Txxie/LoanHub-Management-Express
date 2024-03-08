@@ -3,7 +3,12 @@ import { Item } from '../model';
 
 var router = express.Router();
 
-router.get('/', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
+    console.log(
+        '%c [ total ]-17',
+        'font-size:13px; background:pink; color:#bf2c9f;',
+        req
+    );
     const itemModel = new Item(req.body);
     const item = await itemModel.save();
 
