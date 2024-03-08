@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 const itemSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: true, //必填
     },
     code: {
-        // type: String,
-        type: Number,
+        type: String,
+        // type: Number,
         required: true,
     },
     description: {
