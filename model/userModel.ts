@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const itemSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -31,4 +31,4 @@ const itemSchema = new mongoose.Schema({
   },
 });
 
-export default itemSchema;
+export default userSchema;
