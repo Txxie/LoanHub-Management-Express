@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { Item } from '../model';
+import { updateCategoryTotalQuantity } from '../utils/updateCategoryTotalQuantity';
 
 var router = express.Router();
 
@@ -11,6 +12,8 @@ router.post('/', async (req: Request, res: Response) => {
     );
     const itemModel = new Item(req.body);
     const item = await itemModel.save();
+    // 更新分类总数函数
+    await updateCategoryTotalQuantity();
 
     return res.status(200).json({ message: '创建成功' });
 });
@@ -106,7 +109,8 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
     try {
         await Item.findOneAndUpdate({ _id: req.params.id }, req.body);
-
+        // 更新分类总数函数
+        await updateCategoryTotalQuantity();
         return res.status(200).json();
     } catch (error) {
         return res.status(500).json({ error });
@@ -117,6 +121,8 @@ router.delete('/:id', async (req: Request, res: Response) => {
     const item = await Item.findById(req.params.id);
     if (item) {
         await Item.deleteOne({ _id: req.params.id });
+        // 更新分类总数函数
+        await updateCategoryTotalQuantity();
 
         res.status(200).json({ success: true });
     } else {
