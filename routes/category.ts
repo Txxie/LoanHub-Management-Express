@@ -88,4 +88,19 @@ router.put("/:id", async (req: Request, res: Response) => {
   }
 });
 
+// GET /api/categories
+// 返回分类表中的各分类名称和总数
+router.get('/api/categories', async (req: Request, res: Response) => {
+  try {
+    // 从数据库中获取每个分类的名称和总数
+    const categories = await Category.find({}, 'name quantity');
+
+    // 返回结果给前端
+    res.status(200).json(categories);
+  } catch (error) {
+    console.error('获取分类信息时出错：', error);
+    res.status(500).json({ message: '获取分类信息时出错' });
+  }
+});
+
 export default router;
