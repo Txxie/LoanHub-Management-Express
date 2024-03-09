@@ -10,6 +10,10 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  quantity: { //总数
+    type: Number,
+    default: 0,
+  },
   parent: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
   createdAt: {
     type: Number,
