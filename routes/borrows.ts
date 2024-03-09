@@ -87,7 +87,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// 书籍归还
+// 物品归还
 router.put('/back/:id', async (req: Request, res: Response) => {
   const borrow = await Borrow.findOne({ _id: req.params.id });
   if (borrow) {
@@ -114,5 +114,20 @@ router.put('/back/:id', async (req: Request, res: Response) => {
     res.status(500).json({ message: '该借阅不存在' });
   }
 });
+
+// 返回所有的item和表中相同item的总条数 用不上，直接用上面写的router.get('/', ...)
+// router.get('/', async (req: Request, res: Response) => {
+//   const data = await Borrow.find();
+//   console.log(
+//     '%c [ data ]-17',
+//     'font-size:13px; background:pink; color:#bf2c9f;',
+//     data
+//   );
+//   if (data) {
+//     res.status(200).json({ success: true, data });
+//   } else {
+//     res.status(500).json({ message: '无借出数据' });
+//   }
+// });
 
 export default router;
