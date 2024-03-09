@@ -3,6 +3,7 @@ import itemSchema from "./itemModel";
 import borrowSchema from "./borrowModel";
 import categorySchema from "./categoryModel";
 import userSchema from "./userModel";
+import { updateCategoryTotalQuantity } from '../utils/updateCategoryTotalQuantity';
 
 async function main() {
   // await mongoose.connect("mongodb://localhost:27017/book-admin");
@@ -11,6 +12,8 @@ async function main() {
 
 main()
   .then((res) => {
+    // 在数据库连接成功后调用更新分类总数函数
+    updateCategoryTotalQuantity();
     console.log("mongo connected success");
   })
   .catch(() => {
