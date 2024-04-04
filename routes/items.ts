@@ -21,7 +21,7 @@ router.post('/', async (req: Request, res: Response) => {
 // 查询物品列表
 router.get('/', async (req: Request, res: Response) => {
     const { current = 1, pageSize = 6, all, name, code, category } = req.query;
-    /*原写法产生bug：在物品租借的物品名称下拉框，只会出现6条数据
+    /*原写法产生bug：在物品借用的物品名称下拉框，只会出现6条数据
     // 查询总数
     const total = await Item.countDocuments({
         ...(name && { name }),
