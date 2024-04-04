@@ -16,7 +16,7 @@ router.post('/', async (req: Request, res: Response) => {
         }
 
         // 创建新用户
-        const newUser = new User({ name, nickName, password });
+        const newUser = new User({ name, nickName, password, role: 'user' });
         await newUser.save();
 
         // 返回新用户信息
