@@ -6,6 +6,7 @@ import logger from "morgan";
 import "express-async-errors";
 
 import loginRouter from "./routes/login";
+import registerRouter from "./routes/register";
 import logoutRouter from "./routes/logout";
 import usersRouter from "./routes/users";
 import itemsRouter from "./routes/items";
@@ -34,7 +35,7 @@ app.use(
 );
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  if (!req.url.includes("/login") && !req.url.includes("/logout")) {
+  if (!req.url.includes("/login") && !req.url.includes("/logout") && !req.url.includes("/register")) {
     if (!(req.session as any).user) {
       return res.status(401).json({ message: "请登陆" });
     }
@@ -43,6 +44,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use("/api/login", loginRouter);
+app.use("/api/register", registerRouter);
 app.use("/api/logout", logoutRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/items", itemsRouter);
